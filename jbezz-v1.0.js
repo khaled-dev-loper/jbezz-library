@@ -201,7 +201,7 @@ var $$ = function(q,a = null){
 			return resulater;
 			
 		},
-		onRemove:function(eventStr,func){
+		off:function(eventStr,func){
 			function resetEvent(e){
 				e.removeEventListener("click",func)
 			}
