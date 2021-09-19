@@ -1,0 +1,2 @@
+# Jbezz
+a javascript library :)
