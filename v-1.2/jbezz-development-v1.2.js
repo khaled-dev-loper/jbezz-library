@@ -587,6 +587,11 @@ let resulater =  {
 		},
 		run:function(func){
 			if(a !== null){elem.forEach(function(E,i){func(E,i)});}else{func(elem[0],0);}return resulater;
+		},
+		runEvent:function(ev = "",data = null){
+			return resulater.run(function(el){
+				el.dispatchEvent(new CustomEvent(ev,data))
+			});
 		}
 		
 	}
@@ -619,6 +624,7 @@ $$.api = function(data){
 	let url = data.url;
 	let withCredentials = (data.withCredentials ? data.withCredentials : false)
 	let funcS = (data.start ? data.start : function(){})
+	let progress = (data.progress ? data.progress : false)
 	let OnceFuncS = false;
 	let func = (data.success ? data.success : function(){})
 	let funcE =(data.error ? data.error : function(){})
@@ -628,6 +634,16 @@ $$.api = function(data){
 	if(type == "GET"){url +="?"+u}
 	const xhttp =  $$.makeHttpObject();
 	xhttp.onload = function(){func(this.responseText)}
+	if(progress !== false){
+		xhttp.onprogress  = function(){
+				var percentComplete = 0;
+				if (evt.lengthComputable) 
+				{ 
+					percentComplete = (evt.loaded / evt.total) * 100;  
+				} 
+				progress(percentComplete,evt);
+		}
+	}
 	xhttp.withCredentials = withCredentials;
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 1){
