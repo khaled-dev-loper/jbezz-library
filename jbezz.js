@@ -602,7 +602,7 @@ var $$ = function(q,a = null){
 		}
 		
 	}
-	return this;
+	return resulater;
 }
 $$['$save'] = function(){return null;}
 $$.makeHttpObject = function () {
