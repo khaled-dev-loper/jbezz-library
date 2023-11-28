@@ -12,18 +12,18 @@ if (!('remove' in Element.prototype)) {
     };
 }
 var $$ = function(q,a = null){
-		let elemnt = []
+		let elem = []
 		if(typeof q === 'string' && !$$.isHtml(q)){
-			elemnt = (a !== null) ? document.querySelectorAll(q+":nth-child("+a+")") : document.querySelectorAll(q)
+			elem = (a !== null) ? document.querySelectorAll(q+":nth-child("+a+")") : document.querySelectorAll(q)
 		}else if (Object.prototype.toString.call(q) === '[object Array]'){
-			elemnt = q;
+			elem = q;
 		}else if(typeof q === 'string' && $$.isHtml(q)){
-			elemnt[0] = $$.toHtml(q);
+			elem[0] = $$.toHtml(q);
 		} else {
-			elemnt[0] = q;
+			elem[0] = q;
 		}
 	let resulater =  {
-		elem:elemnt,
+		elem:elem,
 		watchAttr:function(func){
 			return this.run(function(elm){
 				let observer = new MutationObserver(function(mutations) {
